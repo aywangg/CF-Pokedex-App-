@@ -1,10 +1,37 @@
-let pokemonList = (function () {
+let pokemonRepository = (function () {
 
-let pokemonList= [
-  {name: "Charzard", type: ["flying", "fire"], height: "1.7"},
-  {name: "Venusaur", type: ["poison", "grass"], height: "2"},
-  {name: "Dragonite", type: ["dragon", "flying"], height: "2.2"},
- ];
+  let pokemonList= [];
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
+
+  function loadList() {
+    return fetch(apiUrl).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      json.results.forEach(function (item) {
+        let pokemon = {
+          name: item.name,
+          detailsUrl: item.url
+        };
+        add(pokemon);
+      });
+    }).catch(function (e) {
+      console.error(e);
+    })
+  }
+  function loadDetails(item) {
+    let url = item.detailsUrl;
+    return fetch(url).then(function (response) {
+      return response.json();
+    }).then(function (details) {
+      // Now we add the details to the item
+      item.imageUrl = details.sprites.front_default;
+      item.height = details.height;
+      item.types = details.types;
+    }).catch(function (e) {
+      console.error(e);
+    });
+  }
+
 
 function myLoop(list){
   document.write(list.name = " - Height: " + list.height + "<br>");
@@ -49,13 +76,17 @@ return {
   add: add
   addListItem: addListItem
   showDetails: showDetails
+  loadList: loadList
+  loadDetails: loadDetails
 };
 })();
 
-console.log(pokemonList.getAll());
+console.log(pokemonRepository.getAll());
 
-pokemonList.getAll().forEach(function (pokemon) {
-  pokemonList.addListItem(pokemon);
+pokemonRepository.loadList().then(function() {
+  pokemonRepository.getAll().forEach(function(pokemon){
+    pokemonRepository.addListItem(pokemon);
+  });
 });
 
 

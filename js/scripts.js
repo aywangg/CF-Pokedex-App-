@@ -1,40 +1,55 @@
-let pokemonRepository = (function () {
+let pokemonList = (function () {
 
 let pokemonList= [
-  {name: "Charzard", type: ["flying", "fire"], height: "1.7"}
-  {name: "Venusaur", type: ["poison", "grass"], height: "2"}
-  {name: "Dragonite", type: ["dragon", "flying"], height: "2.2"}
- ]
-
- {
-  if (pokemonList[i].height > 0.5 && pokemonList[i].height < 1){
-    document.write(pokemonList[i].name + " (height: " + pokemonList[i].height + " m) - That's as tall as a baseball bat!" + "<br>")
-  }else if (pokemonList[i].height < 2){
-    document.write(pokemonList[i].name + " (height: " + pokemonList[i].height + " m) - That's as tall as Michael Jordan!" + "<br>")
-  }else {
-    document.write(pokemonList[i].name + " (height: " + pokemonList[i].height + " m) - Wow, that is tall!" + "<br>")
-  }
- }
+  {name: "Charzard", type: ["flying", "fire"], height: "1.7"},
+  {name: "Venusaur", type: ["poison", "grass"], height: "2"},
+  {name: "Dragonite", type: ["dragon", "flying"], height: "2.2"},
+ ];
 
 function myLoop(list){
   document.write(list.name = " - Height: " + list.height + "<br>");
 }
 
-pokemonList.forEach(myLoop);
+function add (pokemon) {
+  if (
+    typeof pokemon === "object" &&
+    "name" in pokemon &&
+    "height" in pokemon &&
+    "types" in pokemon 
+  ) {
+  pokemonList.push(pokemon)
+} else {
+   console.log("pokemon is not correct");
+  }
+}
 
 function getAll () {
   return pokemonList;
 }
-function add (pokemon) {
-  pokemonList.push(pokemon)
+
+function addListItem(pokemon) {
+  let pokemonList = document.querySelector (".pokemon-list");
+  let listPokemon = document.createElement ("li");
+  let button = document.createElement ("button");
+  button.innerText = pokemon.name;
+  button.classList.add("button-class");
+  listPokemon.appendChild(button);
+  pokemonList.appendChild(listPokemon);
 }
 
 return {
   getAll: getAll,
   add: add
-}
+  addListItem: addListItem
+};
+})();
 
-})()
+console.log(pokemonList.getAll());
+
+pokemonList.getAll().forEach(function (pokemon) {
+  pokemonList.addListItem(pokemon);
+});
+
 
 
  /*

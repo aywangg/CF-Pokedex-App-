@@ -4,12 +4,19 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Simple JS App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="css/styles.css"/>
   </head>
   <body>
     <h1>Pokedex</h1>
     <ul class="pokemon-list"></ul>
-    <div id= 'modal-container'></div>
+    <div id= 'modal-container'>
+      <div class='modal'></div>
+        <button class='modal-close'></button>
+        <h1>Modal Title</h1>
+        <p>Modal Text</p>
+      </div>
+    </div>
     <strong>
       <script scr="js/promise-polyfill.js"></script>
       <script scr="js/fetch-polyfill.js"></script>

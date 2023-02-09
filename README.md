@@ -1,1 +1,1 @@
-This is a basic application displaying a Pokedex app built using public APIs and basic Javascript.
+This is a basic application displaying a Pokedex app built using HTML, CSS, Bootstrap, JavaScript, and jQuery.

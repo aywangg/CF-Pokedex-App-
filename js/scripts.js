@@ -1,22 +1,46 @@
 let pokemonRepository = (function () {
-
+  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=1000';
   let pokemonList= [];
-  
-  let apiUrl = 'https://pokeapi.co/api/v2/pokemon/?limit=150';
-
-  let pokemonListElement = $('.pokemon-list');
-
-  function add(pokemon) {
-    pokemonList.push(pokemon);
-  };
 
   function getAll () {
     return pokemonList;
   }  
 
+  function add(pokemon) {
+    if (typeof pokemon === 'object') {
+      pokemonList.push(pokemon);
+    } else {
+      alert ('Please enter a Pokemon object');
+    }
+  }
+
   function addListItem (pokemon){
-    let listItem = $('<li class="list-group-item"></li>');
-    let button = $('<button class="pokemon-button btn btn-info" data-target="#pokemon-modal" data-toggle="modal">' + pokemon.name + '</button>');
+    let pokemonName = pokemon.name;
+    let pokemonCapped = pokemonName.charAt(0).toUpperCase() + pokemonName.slice(1);
+    let list = document.querySelector('ul');
+    list.classList.add('list-group', 'list-group-horizontal');
+    let listItem = document.createElement('li');
+    listItem.classList.add('group-list-item');
+    let button = document.createElement('button');
+    button.innerText = pokemonCapped;
+    button.classList.add(
+      'pokemon=button',
+      'show-modal',
+      'btn',
+      'btn-primary'
+    );
+    button.setAttribute('data-toggle', 'modal');
+    button.setAttribute('data-target', '.modal');
+    listItem.appendChild(button);
+    list.appendChild(listItem);
+    addListener(button, pokemon);
+  }
+
+  function addListener(element, pokemon) {
+    element.addEventListener('click', function () {
+      showModal(pokemon);
+    });
+  }
 
     listItem.append(button);
     pokemonListElement.append(listItem);
